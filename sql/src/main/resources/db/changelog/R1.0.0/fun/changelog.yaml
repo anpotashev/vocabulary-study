@@ -1,0 +1,31 @@
+$schema: https://raw.githubusercontent.com/sunildabburi/liquibase-schema/main/liquibase-schema-3.10.json
+
+databaseChangeLog:
+  - changeSet:
+      id: 20230205141132_new_fun_quest_new_word
+      author: Aleksandr N Potashev
+      runOnChange: true
+      comment: New function quest_new_word
+      changes:
+        - sqlFile:
+            path: 20230205141132_new_fun_quest_new_word.sql
+            relativeToChangelogFile: true
+            endDelimiter: '\$\$;'
+      rollback:
+        - sqlFile:
+            path: 20230205141132_new_fun_quest_new_word_rollback.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 20230205220832_new_fun_save_quest_result
+      author: Aleksandr N Potashev
+      runOnChange: false
+      comment: New function save_quest_result
+      changes:
+        - sqlFile:
+            path: 20230205220832_new_fun_save_quest_result.sql
+            relativeToChangelogFile: true
+            endDelimiter: '\$\$;'
+      rollback:
+        - sqlFile:
+            path: 20230205220832_new_fun_save_quest_result_rollback.sql
+            relativeToChangelogFile: true

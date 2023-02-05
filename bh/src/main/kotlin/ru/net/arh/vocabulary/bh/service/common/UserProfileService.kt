@@ -1,4 +1,4 @@
-package ru.net.arh.vocabulary.bh.service
+package ru.net.arh.vocabulary.bh.service.common
 
 import ru.net.arh.vocabulary.bh.data.UserProfile
 

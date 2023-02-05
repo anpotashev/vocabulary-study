@@ -1,4 +1,5 @@
-package ru.net.arh.vocabulary.bh.service
+package ru.net.arh.vocabulary.bh.service.telegram
+
 class MdV2Utils
 
 fun String.escape(): String =
@@ -21,9 +22,9 @@ fun String.escape(): String =
         .replace(".", "\\.")
         .replace("!", "\\!")
 
-fun String.bold(): String ="*$this*"
+fun String.bold(): String = "*$this*"
 
-fun String.hide(): String ="||$this||"
+fun String.hide(): String = "||$this||"
 
 fun String.underline() = "__${this}__"
 

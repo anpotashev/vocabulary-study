@@ -1,22 +1,24 @@
-package ru.net.arh.vocabulary.bh.service
+package ru.net.arh.vocabulary.bh.service.common
 
 import org.springframework.stereotype.Service
-import java.text.MessageFormat
 import java.util.*
 
 @Service
 class MessageTemplateProviderImpl(
     private val userProfileService: UserProfileService
-): MessageTemplateProvider {
+) : MessageTemplateProvider {
 
     private val resourceBundlesMap = mutableMapOf<Locale, ResourceBundle>()
     override fun <E : Enum<E>> getMessage(chatId: Long, messageCode: E): String {
-        return getString(chatId, messageCode.toString())
+        return getString(getLocale(chatId), messageCode.toString())
     }
 
-    private fun getString(chatId: Long, code: String): String {
-        val userLocale = getLocale(chatId)
-        val resourceBundle = getResourceBundle(userLocale)
+    override fun <E : Enum<E>> getMessage(locale: Locale, messageCode: E): String {
+        return getString(locale, messageCode.toString())
+    }
+
+    private fun getString(locale: Locale, code: String): String {
+        val resourceBundle = getResourceBundle(locale)
         return resourceBundle.getString(code)
     }
 

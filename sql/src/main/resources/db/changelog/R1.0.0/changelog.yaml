@@ -10,3 +10,6 @@ databaseChangeLog:
   - include:
       file: ddl/changelog.yaml
       relativeToChangelogFile: true
+  - include:
+      file: fun/changelog.yaml
+      relativeToChangelogFile: true

@@ -1,9 +1,9 @@
-package ru.net.arh.vocabulary.bh.service.repository
+package ru.net.arh.vocabulary.bh.service.common.repository
 
 import org.springframework.data.repository.CrudRepository
 import ru.net.arh.vocabulary.bh.data.UserProfile
 
-interface UserProfileRepository: CrudRepository<UserProfile, Long> {
+interface UserProfileRepository : CrudRepository<UserProfile, Long> {
 
     fun findByChatId(chatId: Long): UserProfile?
 }

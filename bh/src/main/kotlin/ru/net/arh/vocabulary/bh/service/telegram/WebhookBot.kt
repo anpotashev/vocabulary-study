@@ -1,16 +1,16 @@
-package ru.net.arh.vocabulary.bh.service
+package ru.net.arh.vocabulary.bh.service.telegram
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
-import org.telegram.telegrambots.bots.TelegramLongPollingBot
+import org.telegram.telegrambots.bots.TelegramWebhookBot
 import org.telegram.telegrambots.meta.api.objects.Update
 
 @Service
-@Profile("!webhook")
-class LongPoolingBot(
+@Profile("webhook")
+class WebhookBot(
     private val updateHandler: UpdateHandler
-) : TelegramLongPollingBot() {
+) : TelegramWebhookBot() {
 
     @Value("\${telegram.botName}")
     private val botName: String = ""
@@ -18,13 +18,16 @@ class LongPoolingBot(
     @Value("\${telegram.token}")
     private val token: String = ""
 
+    @Value("\${telegram.botPath}")
+    private val botPath: String = ""
+
     override fun getBotToken() = token
 
     override fun getBotUsername() = botName
 
-    override fun onUpdateReceived(update: Update) {
-        updateHandler.onUpdate(update)?.let {
-            this.execute(it)
-        }
-    }
+    override fun getBotPath() = botPath
+
+    override fun onWebhookUpdateReceived(update: Update) =
+        updateHandler.onUpdate(update)
+
 }

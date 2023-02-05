@@ -7,7 +7,7 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(name  = "user_profile")
+@Table(name = "user_profile")
 /**
  * User's profile
  */

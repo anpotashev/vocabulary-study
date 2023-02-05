@@ -27,6 +27,43 @@ databaseChangeLog:
         - sqlFile:
             path: 20230205111524_new_table_user_profile_rollback.sql
             relativeToChangelogFile: true
-
-
+  - changeSet:
+      id: 20230205142734_create_view_quest_data
+      author: Aleksandr N Potashev
+      runOnChange: false
+      comment: Create view quest_data
+      changes:
+        - sqlFile:
+            path: 20230205142734_create_view_quest_data.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 20230205142734_create_view_quest_data_rollback.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 20230205175628_create_new_table_quest_history
+      author: Aleksandr N Potashev
+      runOnChange: false
+      comment: Create table quest_history
+      changes:
+        - sqlFile:
+            path: 20230205175628_create_new_table_quest_history.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 20230205175628_create_new_table_quest_history_rollback.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 20230205190500_create_table_callback_data
+      author: Aleksandr N Potashev
+      runOnChange: false
+      comment: Create new table callback_data
+      changes:
+        - sqlFile:
+            path: 20230205190500_create_table_callback_data.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 20230205190500_create_table_callback_data_rollback.sql
+            relativeToChangelogFile: true
 
