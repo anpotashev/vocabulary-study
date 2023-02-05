@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController
 import org.telegram.telegrambots.bots.TelegramWebhookBot
 import org.telegram.telegrambots.meta.api.objects.Update
 
+/**
+ * Controller for telegram webhooks
+ */
 @RestController
 @Profile("webhook")
 class WebHookController(

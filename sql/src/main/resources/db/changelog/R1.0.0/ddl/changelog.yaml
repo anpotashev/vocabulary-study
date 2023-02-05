@@ -14,3 +14,19 @@ databaseChangeLog:
         - sqlFile:
             path: 20230204144126_new_table_words_rollback.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 20230205111524_new_table_user_profile
+      author: Aleksandr N Potashev
+      runOnChange: false
+      comment: Creating table user_profile
+      changes:
+        - sqlFile:
+            path: 20230205111524_new_table_user_profile.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 20230205111524_new_table_user_profile_rollback.sql
+            relativeToChangelogFile: true
+
+
+

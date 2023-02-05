@@ -1,9 +1,9 @@
-#spring:
-#  datasource:
-#    url: ${JDBC_URL:vocabulary}
-#    username: ${DB_USER:vocabulary}
-#    password: ${DB_PASSWORD:jdbc:postgresql://localhost/vocabulary}
-#    driver-class-name: org.postgresql.Driver
+spring:
+  datasource:
+    url: ${JDBC_URL:vocabulary}
+    username: ${DB_USER:vocabulary}
+    password: ${DB_PASSWORD:jdbc:postgresql://localhost/vocabulary}
+    driver-class-name: org.postgresql.Driver
 
 telegram:
   botName: ${BOT_NAME}
