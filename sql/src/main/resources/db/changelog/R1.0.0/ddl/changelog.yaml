@@ -1,0 +1,16 @@
+$schema: https://raw.githubusercontent.com/sunildabburi/liquibase-schema/main/liquibase-schema-3.10.json
+
+databaseChangeLog:
+  - changeSet:
+      id: 20230204144126_new_table_words
+      author: Aleksandr N Potashev
+      runOnChange: false
+      comment: Create table words
+      changes:
+        - sqlFile:
+            path: 20230204144126_new_table_words.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 20230204144126_new_table_words_rollback.sql
+            relativeToChangelogFile: true

@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: ${JDBC_URL:vocabulary}
+    username: ${DB_USER:vocabulary}
+    password: ${DB_PASSWORD:jdbc:postgresql://192.168.1.53:5432/vocabulary}
+    driver-class-name: org.postgresql.Driver
