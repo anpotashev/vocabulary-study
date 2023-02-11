@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${JDBC_URL:vocabulary}
+    url: ${JDBC_URL:jdbc:postgresql://localhost/vocabulary}
     username: ${DB_USER:vocabulary}
-    password: ${DB_PASSWORD:jdbc:postgresql://localhost/vocabulary}
+    password: ${DB_PASSWORD:vocabulary}
     driver-class-name: org.postgresql.Driver
 
 telegram:
