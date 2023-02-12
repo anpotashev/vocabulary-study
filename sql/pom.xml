@@ -55,6 +55,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>${DOCKER_REGISTRY_URL}/anpotashev/${project.artifactId}:${project.version}-${BUILD_NUMBER}</name>
+                    </image>
+                    <docker>
+                        <host>tcp://192.168.1.100:2375</host>
+                        <tlsVerify>false</tlsVerify>
+                    </docker>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -74,6 +83,13 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
             </plugin>
         </plugins>
     </build>
