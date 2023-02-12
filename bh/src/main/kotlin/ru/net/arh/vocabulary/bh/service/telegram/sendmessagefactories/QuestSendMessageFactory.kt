@@ -11,6 +11,7 @@ import ru.net.arh.vocabulary.bh.service.common.MessageTemplateProvider
 import ru.net.arh.vocabulary.bh.service.common.UserProfileService
 import ru.net.arh.vocabulary.bh.service.telegram.CallbackUtils
 import ru.net.arh.vocabulary.bh.service.telegram.callbackhandlers.ProcessQuestAnswerCallbackHandlerImpl
+import ru.net.arh.vocabulary.bh.service.telegram.escape
 import java.text.MessageFormat
 
 @Service
@@ -23,7 +24,7 @@ class QuestSendMessageFactory(
     fun getInstance(chatId: Long, questData: QuestData): SendMessage {
         val locale = userProfileService.getUserProfile(chatId).locale
         val msg = MessageFormat(messageTemplateProvider.getMessage(locale, MessageCodes.QUEST_WORD))
-            .format(arrayOf(questData.original, questData.translated))
+            .format(arrayOf(questData.original.escape(), questData.translated.escape()))
         val okCallbackString = callbackUtils.saveCallbackDataString(
             ProcessQuestAnswerCallbackHandlerImpl.NAME,
             mapOf("success" to true, "historyId" to questData.historyId)
