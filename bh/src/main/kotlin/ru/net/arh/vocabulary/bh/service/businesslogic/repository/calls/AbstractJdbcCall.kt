@@ -28,8 +28,9 @@ abstract class AbstractJdbcCall(
 
     fun checkForErrors(out: Map<String, Any>) {
         val errorCode = out["p_err_code"] as String? ?: return
-        VocabularyErrorCode.values().firstOrNull { it.name == errorCode } ?: VocabularyErrorCode.UNKNOWN_ERROR
-        throw VocabularyBhException(errorCode = VocabularyErrorCode.valueOf(errorCode))
+        throw VocabularyBhException(
+            errorCode = VocabularyErrorCode.values().firstOrNull { it.name == errorCode } ?: VocabularyErrorCode.UNKNOWN_ERROR
+        )
     }
 
     /**
