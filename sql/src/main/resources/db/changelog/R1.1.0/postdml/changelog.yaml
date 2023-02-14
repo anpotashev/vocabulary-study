@@ -1,0 +1,29 @@
+$schema: https://raw.githubusercontent.com/sunildabburi/liquibase-schema/main/liquibase-schema-3.10.json
+
+databaseChangeLog:
+  - changeSet:
+      id: 20230214150708_modify_fk_in_table_words
+      author: Поташев Александр Николаевич
+      runOnChange: false
+      comment: Add fk words->dict
+      changes:
+        - sqlFile:
+            path: 20230214150708_modify_fk_in_table_words.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 20230214150708_modify_fk_in_table_words_rollback.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 20230214162800_drop_column_chat_id_in_table_words
+      author: Поташев Александр Николаевич
+      runOnChange: false
+      comment: Delete column words.chat_id
+      changes:
+        - sqlFile:
+            path: 20230214162800_drop_column_chat_id_in_table_words.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 20230214162800_drop_column_chat_id_in_table_words_rollback.sql
+            relativeToChangelogFile: true

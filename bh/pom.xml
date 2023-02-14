@@ -15,8 +15,8 @@
     <description>Vocabulary BH module</description>
 
     <properties>
-        <java.version>17</java.version>
-        <kotlin.version>1.7.22</kotlin.version>
+<!--        <java.version>1.8</java.version>-->
+<!--        <kotlin.version>1.7.22</kotlin.version>-->
         <telegram.version>5.7.1</telegram.version>
         <testcontainers.version>1.17.6</testcontainers.version>
     </properties>
