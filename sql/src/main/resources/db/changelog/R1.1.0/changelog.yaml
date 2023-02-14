@@ -1,0 +1,19 @@
+$schema: https://raw.githubusercontent.com/sunildabburi/liquibase-schema/main/liquibase-schema-3.10.json
+
+databaseChangeLog:
+  - changeSet:
+      id: R1.1.0
+      author: system
+      changes:
+        - tagDatabase:
+            tag: R1.1.0
+  - include:
+      file: ddl/changelog.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: dml/changelog.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: fun/changelog.yaml
+      relativeToChangelogFile: true
+
