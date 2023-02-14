@@ -10,6 +10,7 @@ currentversion=$1
 nextversion=$2
 sed -i "" -e "1,/\<version\>$currentversion\<\/version\>/s/\<version\>$currentversion\(.*\)\<\/version\>/\<version\>$nextversion\1\<\/version\>/" pom.xml
 sed -i "" -e "1,/\<version\>$currentversion\<\/version\>/s/\<version\>$currentversion\(.*\)\<\/version\>/\<version\>$nextversion\1\<\/version\>/" pom.xml
+sed -i "" -e "1,/R$currentversion/s/R$currentversion/R$nextversion/" create_sql.sh
 
 echo "
   - include:
