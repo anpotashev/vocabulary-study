@@ -17,6 +17,8 @@ enum class MessageCodes(val messageCode: String) {
     MESSAGE_DICTIONARY_CREATED("message.dictionary_created"),
     MESSAGE_PING("message.ping"),
     MESSAGE_DICTIONARY_SET_ACTIVE("message.dictionary_set_active"),
+    MESSAGE_CHOOSE_LANGUAGE("message.choose_language"),
+    MESSAGE_LOCALE_SET("message.locale_set"),
 
     CAPTION_OK("caption.ok"),
     CAPTION_ERROR("caption.error"),
