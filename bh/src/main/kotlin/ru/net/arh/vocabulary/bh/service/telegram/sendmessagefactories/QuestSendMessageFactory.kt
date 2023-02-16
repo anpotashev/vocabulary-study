@@ -13,6 +13,7 @@ import ru.net.arh.vocabulary.bh.service.telegram.CallbackUtils
 import ru.net.arh.vocabulary.bh.service.telegram.callbackhandlers.ProcessQuestAnswerCallbackHandlerImpl
 import ru.net.arh.vocabulary.bh.service.telegram.escape
 import java.text.MessageFormat
+import java.util.*
 
 @Service
 class QuestSendMessageFactory(
@@ -23,46 +24,32 @@ class QuestSendMessageFactory(
 
     fun getInstance(chatId: Long, questData: QuestData): SendMessage {
         val locale = userProfileService.getUserProfile(chatId).locale
-        val msg = MessageFormat(messageTemplateProvider.getMessage(locale, MessageCodes.QUEST_WORD))
+        val msg = MessageFormat(messageTemplateProvider.getMessage(locale, MessageCodes.MESSAGE_QUEST_WORD))
             .format(arrayOf(questData.original.escape(), questData.translated.escape()))
-        val okCallbackString = callbackUtils.saveCallbackDataString(
-            ProcessQuestAnswerCallbackHandlerImpl.NAME,
-            mapOf("success" to true, "historyId" to questData.historyId)
-        )
-        val skipCallbackString = callbackUtils.saveCallbackDataString(
-            ProcessQuestAnswerCallbackHandlerImpl.NAME,
-            mapOf("success" to null, "historyId" to questData.historyId)
-        )
-        val errorCallbackString = callbackUtils.saveCallbackDataString(
-            ProcessQuestAnswerCallbackHandlerImpl.NAME,
-            mapOf("success" to false, "historyId" to questData.historyId)
-        )
+        val okCallbackButton = inlineKeyboardButton(locale, questData.historyId, true, MessageCodes.CAPTION_OK)
+        val skipCallbackButton = inlineKeyboardButton(locale, questData.historyId, null, MessageCodes.CAPTION_SKIP)
+        val errorCallbackButton = inlineKeyboardButton(locale, questData.historyId, false, MessageCodes.CAPTION_ERROR)
+        val buttons = listOf(okCallbackButton, skipCallbackButton, errorCallbackButton)
         return SendMessage.builder()
             .chatId(chatId.toString())
             .text(msg)
             .parseMode(ParseMode.MARKDOWNV2)
             .replyMarkup(
                 InlineKeyboardMarkup.builder()
-                    .keyboard(
-                        listOf(
-                            listOf(
-                                InlineKeyboardButton.builder()
-                                    .text(messageTemplateProvider.getMessage(locale, MessageCodes.CAPTION_OK))
-                                    .callbackData(okCallbackString)
-                                    .build(),
-                                InlineKeyboardButton.builder()
-                                    .text(messageTemplateProvider.getMessage(locale, MessageCodes.CAPTION_SKIP))
-                                    .callbackData(skipCallbackString)
-                                    .build(),
-                                InlineKeyboardButton.builder()
-                                    .text(messageTemplateProvider.getMessage(locale, MessageCodes.CAPTION_ERROR))
-                                    .callbackData(errorCallbackString)
-                                    .build()
-                            )
-                        )
-                    )
+                    .keyboard(listOf(buttons))
                     .build()
             )
             .build()
     }
+
+    private fun inlineKeyboardButton(locale: Locale, historyId: Long, success: Boolean?, messageCode: MessageCodes) =
+            InlineKeyboardButton.builder()
+                    .text(messageTemplateProvider.getMessage(locale, messageCode))
+                    .callbackData(callbackData(historyId, success))
+                    .build()
+
+    private fun callbackData(historyId: Long, success: Boolean?) = callbackUtils.saveCallbackDataString(
+            ProcessQuestAnswerCallbackHandlerImpl.NAME,
+            mapOf("success" to success, "historyId" to historyId)
+    )
 }

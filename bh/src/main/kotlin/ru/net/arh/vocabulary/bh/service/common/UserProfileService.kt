@@ -8,9 +8,21 @@ import ru.net.arh.vocabulary.bh.data.UserProfile
 interface UserProfileService {
 
     /**
-     * returns user's profile. If not exists creates default one.
-     * @param chatId - user's telegram chat identifier
+     * Returns user profile. If not exists creates default one.
+     * @param chatId - user telegram chat identifier
      * @return UserProfile - user profile
      */
     fun getUserProfile(chatId: Long): UserProfile
+
+    /**
+     * Saves user profile.
+     * @param userProfile - user profile
+     */
+    fun save(userProfile: UserProfile)
+
+    /**
+     * Clears field simpleMessageData in user profile
+     * @param chatId - user telegram chat identifier
+     */
+    fun clearSimpleMessageData(chatId: Long)
 }

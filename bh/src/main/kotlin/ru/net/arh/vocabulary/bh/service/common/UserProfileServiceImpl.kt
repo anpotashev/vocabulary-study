@@ -12,4 +12,14 @@ class UserProfileServiceImpl(
         return userProfileRepository.findByChatId(chatId)
             ?: userProfileRepository.save(UserProfile(chatId = chatId))
     }
+
+    override fun save(userProfile: UserProfile) {
+        userProfileRepository.save(userProfile)
+    }
+
+    override fun clearSimpleMessageData(chatId: Long) {
+        val userProfile = getUserProfile(chatId)
+        userProfile.simpleMessageData = null
+        save(userProfile)
+    }
 }

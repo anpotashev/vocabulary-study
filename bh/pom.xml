@@ -15,8 +15,6 @@
     <description>Vocabulary BH module</description>
 
     <properties>
-<!--        <java.version>1.8</java.version>-->
-<!--        <kotlin.version>1.7.22</kotlin.version>-->
         <telegram.version>5.7.1</telegram.version>
         <testcontainers.version>1.17.6</testcontainers.version>
     </properties>
@@ -69,7 +67,7 @@
         <dependency>
             <groupId>ru.net.arh.vocabulary</groupId>
             <artifactId>sql</artifactId>
-            <version>1.0.0</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
