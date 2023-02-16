@@ -16,15 +16,14 @@ class GetCallbackData(
 
     init {
         setDataSource(dataSource)
-        setSql(
-            """
+        val sql = """
             select 
             jsonb_build_object('name', callback_name) ||
             jsonb_build_object('params', callback_data) as p_out
             from callback_data
             where id = :p_id
-        """.trimIndent()
-        )
+        """
+        setSql(sql)
         declareParameter(SqlParameter("p_id", Types.BIGINT))
         setRowMapper({ r, _ -> r.getString("p_out") })
     }

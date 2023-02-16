@@ -14,6 +14,9 @@ databaseChangeLog:
       file: dml/changelog.yaml
       relativeToChangelogFile: true
   - include:
+      file: postdml/changelog.yaml
+      relativeToChangelogFile: true
+  - include:
       file: fun/changelog.yaml
       relativeToChangelogFile: true
 

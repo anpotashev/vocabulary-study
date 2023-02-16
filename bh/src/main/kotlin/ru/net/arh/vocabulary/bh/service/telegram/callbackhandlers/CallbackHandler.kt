@@ -9,5 +9,15 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage
  * we should have an implementation annotated by @Service("my_command")
  */
 interface CallbackHandler {
+
+    /**
+     * handler method.
+     * @param callbackParams - data used at handle
+     * @param chatId - telegram chat identifier
+     * @param messageId - telegram message identifier
+     * @param updateId - telegram update identifier
+     * @return a SendMessage object to send answer or null
+     * @see SendMessage
+     */
     fun onUpdate(callbackParams: Map<String, Any?>, chatId: Long, messageId: Int, updateId: Int): SendMessage?
 }

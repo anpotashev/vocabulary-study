@@ -1,3 +1,42 @@
 $schema: https://raw.githubusercontent.com/sunildabburi/liquibase-schema/main/liquibase-schema-3.10.json
 
-databaseChangeLog: []
+databaseChangeLog:
+  - changeSet:
+      id: 20230214100148_fill_data_in_dict_table
+      author: Поташев Александр Николаевич
+      runOnChange: false
+      comment: fill data in the dict table for present users
+      changes:
+        - sqlFile:
+            path: 20230214100148_fill_data_in_dict_table.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 20230214100148_fill_data_in_dict_table_rollback.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 20230214143614_set_dict_id_in_words
+      author: Поташев Александр Николаевич
+      runOnChange: false
+      comment: Fill dict_id in table words
+      changes:
+        - sqlFile:
+            path: 20230214143614_set_dict_id_in_words.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 20230214143614_set_dict_id_in_words_rollback.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 20230214165021_set_active_dict_id_int_user_profile
+      author: Поташев Александр Николаевич
+      runOnChange: false
+      comment: Set values in column user_profile.active_dict_id
+      changes:
+        - sqlFile:
+            path: 20230214165021_set_active_dict_id_int_user_profile.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 20230214165021_set_active_dict_id_int_user_profile_rollback.sql
+            relativeToChangelogFile: true

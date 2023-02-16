@@ -13,9 +13,10 @@ import java.text.MessageFormat
 
 @Service
 class UpdateHandlerImpl(
-    private val messageTemplateProvider: MessageTemplateProvider,
-    private val telegramCommandHandler: TelegramCommandHandler,
-    private val telegramCallbackQueryHandler: TelegramCallbackQueryHandler,
+        private val messageTemplateProvider: MessageTemplateProvider,
+        private val telegramCommandHandler: TelegramCommandHandler,
+        private val telegramCallbackQueryHandler: TelegramCallbackQueryHandler,
+        private val telegramSimpleMessageHandler: TelegramSimpleMessageHandlerImpl,
 ) : UpdateHandler {
 
     @Suppress("UNCHECKED_CAST")
@@ -26,6 +27,7 @@ class UpdateHandlerImpl(
             return when {
                 update.message?.isCommand ?: false -> telegramCommandHandler.onUpdate(update)
                 update.hasCallbackQuery() -> telegramCallbackQueryHandler.onUpdate(update)
+                update.message?.hasText() ?: false -> telegramSimpleMessageHandler.onUpdate(update)
                 else -> null
             }
         } catch (e: Throwable) {

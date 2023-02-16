@@ -16,12 +16,11 @@ class SaveCallbackDataCall(
 
     init {
         setDataSource(dataSource)
-        setSql(
-            """
+        val sql = """
             insert into callback_data(callback_name, callback_data) 
             values (:p_name, :p_data)
-        """.trimIndent()
-        )
+        """
+        setSql(sql)
 
         setGeneratedKeysColumnNames("id")
         declareParameter(SqlParameter("p_name", Types.VARCHAR))

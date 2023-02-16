@@ -1,3 +1,18 @@
 $schema: https://raw.githubusercontent.com/sunildabburi/liquibase-schema/main/liquibase-schema-3.10.json
 
-databaseChangeLog: []
+databaseChangeLog:
+  - changeSet:
+      id: 20230214165949_modify_quest_new_word
+      author: Поташев Александр Николаевич
+      runOnChange: false
+      comment: Modify function quest_new_word
+      changes:
+        - sqlFile:
+            path: 20230214165949_modify_quest_new_word.sql
+            relativeToChangelogFile: true
+            endDelimiter: '\$\$;'
+      rollback:
+        - sqlFile:
+            path: 20230214165949_modify_quest_new_word_rollback.sql
+            relativeToChangelogFile: true
+            endDelimiter: '\$\$;'

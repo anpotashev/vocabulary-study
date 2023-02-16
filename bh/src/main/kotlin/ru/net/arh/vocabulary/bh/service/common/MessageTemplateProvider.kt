@@ -8,17 +8,17 @@ import java.util.*
 interface MessageTemplateProvider {
 
     /**
-     * get localized message by it's code.
-     * @param chatId - user's chat-id identifier. Used to get user's locale
-     * @param messageCode - message code (enum). Looks for message by messageCode.toString()
+     * retrieves localized message by its code.
+     * @param chatId - user telegram chat identifier. Is used to get user locale
+     * @param messageCode - message code (enum).
      * @return localized message
      */
     fun <E : Enum<E>> getMessage(chatId: Long, messageCode: E): String
 
     /**
-     * get localized message by it's code
+     * get localized message by its code
      * @param locale - locale
-     * @param messageCode - message code (enum). Looks for message by messageCode.toString()
+     * @param messageCode - message code (enum).
      * @return localized message
      */
     fun <E : Enum<E>> getMessage(locale: Locale, messageCode: E): String

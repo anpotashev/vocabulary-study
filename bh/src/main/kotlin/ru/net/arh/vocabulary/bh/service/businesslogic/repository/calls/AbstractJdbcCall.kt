@@ -26,6 +26,18 @@ abstract class AbstractJdbcCall(
         )
     }
 
+    /**
+     * Check for errors in call result.
+     * Throw a VocabularyBhException if parameter p_err_code is not null and not blank.
+     * @see ru.net.arh.vocabulary.bh.exceptions.VocabularyBhException
+     *
+     * If p_err_code is equal any value in VocabularyErrorCode, this value is used in VocabularyBhException constructor.
+     * Otherwise used VocabularyErrorCode.UNKNOWN_ERROR
+     * @see ru.net.arh.vocabulary.bh.exceptions.VocabularyErrorCode
+     *
+     * @param out - result of SimpleJdbcCall.execute call
+     * @see org.springframework.jdbc.core.simple.SimpleJdbcCall.execute
+     */
     fun checkForErrors(out: Map<String, Any>) {
         val errorCode = out["p_err_code"] as String? ?: return
         throw VocabularyBhException(
