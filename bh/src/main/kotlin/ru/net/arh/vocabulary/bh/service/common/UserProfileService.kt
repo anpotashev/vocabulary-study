@@ -1,5 +1,6 @@
 package ru.net.arh.vocabulary.bh.service.common
 
+import ru.net.arh.vocabulary.bh.data.SimpleMessageData
 import ru.net.arh.vocabulary.bh.data.UserProfile
 
 /**
@@ -19,6 +20,14 @@ interface UserProfileService {
      * @param userProfile - user profile
      */
     fun save(userProfile: UserProfile)
+
+    /**
+     * Updates user profile
+     * @param chatId - telegram chat identifier
+     * @param fun0 - function changes user profile
+     * @return updated user profile
+     */
+    fun update(chatId: Long, fun0: (userProfile: UserProfile) -> UserProfile): UserProfile
 
     /**
      * Clears field simpleMessageData in user profile

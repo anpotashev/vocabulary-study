@@ -3,12 +3,10 @@ package ru.net.arh.vocabulary.bh.service.telegram.callbackhandlers
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
+import ru.net.arh.vocabulary.bh.aop.ClearSimpleMessageBeforeRunThisMethod
 import ru.net.arh.vocabulary.bh.service.businesslogic.DictionaryManagementService
 import ru.net.arh.vocabulary.bh.service.common.UserProfileService
-import ru.net.arh.vocabulary.bh.service.telegram.sendmessagefactories.ConfirmDeleteNonEmptyDictionarySendMessageFactory
-import ru.net.arh.vocabulary.bh.service.telegram.sendmessagefactories.DictionaryDeletedSendMessageFactory
-import ru.net.arh.vocabulary.bh.service.telegram.sendmessagefactories.DictionarySetActiveSendMessageFactory
-import ru.net.arh.vocabulary.bh.service.telegram.sendmessagefactories.RenameDictionarySendMessageFactory
+import ru.net.arh.vocabulary.bh.service.telegram.sendmessagefactories.*
 
 /**
  * CallbackHandler implementation.
@@ -21,6 +19,7 @@ class ProcessManageDictionaryActionCallbackHandlerImpl(
         private val confirmDeleteNonEmptyDictionarySendMessageFactory: ConfirmDeleteNonEmptyDictionarySendMessageFactory,
         private val dictionarySetActiveSendMessageFactory: DictionarySetActiveSendMessageFactory,
         private val renameDictionarySendMessageFactory: RenameDictionarySendMessageFactory,
+        private val startAddingWordsSendMessageFactory: StartAddingWordsSendMessageFactory,
         private val userProfileService: UserProfileService,
 ): CallbackHandler {
 
@@ -29,6 +28,7 @@ class ProcessManageDictionaryActionCallbackHandlerImpl(
         val log = LoggerFactory.getLogger(ProcessManageDictionaryActionCallbackHandlerImpl::class.java)
     }
 
+    @ClearSimpleMessageBeforeRunThisMethod
     override fun onUpdate(callbackParams: Map<String, Any?>, chatId: Long, messageId: Int, updateId: Int): SendMessage {
         log.debug("Start processing 'processManageDictionaryAction' callback. ChatId={}", chatId)
         log.debug("Retrieving data from data-map")
@@ -39,7 +39,13 @@ class ProcessManageDictionaryActionCallbackHandlerImpl(
             Actions.DELETE -> processDelete(dictId, chatId)
             Actions.SET_ACTIVE -> processSetActive(dictId, chatId)
             Actions.RENAME -> processRename(dictId, chatId)
+            Actions.ADD_WORDS -> processManageWords(dictId, chatId)
         }
+    }
+
+    private fun processManageWords(dictId: Long, chatId: Long): SendMessage {
+        log.debug("Processing start adding words in dictionary.")
+        return startAddingWordsSendMessageFactory.getInstance(chatId, dictId)
     }
 
     private fun processRename(dictId: Long, chatId: Long): SendMessage {
@@ -71,6 +77,7 @@ class ProcessManageDictionaryActionCallbackHandlerImpl(
     enum class Actions {
         DELETE,
         SET_ACTIVE,
-        RENAME
+        RENAME,
+        ADD_WORDS
     }
 }

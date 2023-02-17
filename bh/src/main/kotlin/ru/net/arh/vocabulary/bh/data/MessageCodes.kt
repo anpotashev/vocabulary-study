@@ -19,6 +19,9 @@ enum class MessageCodes(val messageCode: String) {
     MESSAGE_DICTIONARY_SET_ACTIVE("message.dictionary_set_active"),
     MESSAGE_CHOOSE_LANGUAGE("message.choose_language"),
     MESSAGE_LOCALE_SET("message.locale_set"),
+    MESSAGE_ADDING_WORDS("message.adding_words"),
+    MESSAGE_USER_FINISHED_ADDING_WORDS("message.user_finished_adding_words"),
+    ADDED_N_WORDS("message.added_n_words"),
 
     CAPTION_OK("caption.ok"),
     CAPTION_ERROR("caption.error"),
@@ -26,7 +29,9 @@ enum class MessageCodes(val messageCode: String) {
     CAPTION_CREATE("caption.create"),
     CAPTION_RENAME("caption.rename"),
     CAPTION_DELETE("caption.delete"),
-    CAPTION_SET_ACTIVE("caption.set_active");
+    CAPTION_SET_ACTIVE("caption.set_active"),
+    CAPTION_ADD_WORDS("caption.add_words")
+    ;
 
     override fun toString(): String {
         return messageCode

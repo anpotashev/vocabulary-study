@@ -1,6 +1,7 @@
 package ru.net.arh.vocabulary.bh.service.common
 
 import org.springframework.stereotype.Service
+import ru.net.arh.vocabulary.bh.data.SimpleMessageData
 import ru.net.arh.vocabulary.bh.data.UserProfile
 import ru.net.arh.vocabulary.bh.service.common.repository.UserProfileRepository
 
@@ -17,9 +18,14 @@ class UserProfileServiceImpl(
         userProfileRepository.save(userProfile)
     }
 
-    override fun clearSimpleMessageData(chatId: Long) {
+    override fun update(chatId: Long, fun0: (userProfile: UserProfile) -> UserProfile): UserProfile {
         val userProfile = getUserProfile(chatId)
-        userProfile.simpleMessageData = null
+            .let { fun0.invoke(it) }
         save(userProfile)
+        return userProfile
+    }
+
+    override fun clearSimpleMessageData(chatId: Long) {
+        update(chatId, { it.apply { it.simpleMessageData = null }})
     }
 }
