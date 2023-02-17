@@ -22,12 +22,12 @@ interface UserProfileService {
     fun save(userProfile: UserProfile)
 
     /**
-     * Updates user profile
+     * Updates user profile, setting simpleMessageData
      * @param chatId - telegram chat identifier
-     * @param fun0 - function changes user profile
+     * @param simpleMessageData - simpleMessageData
      * @return updated user profile
      */
-    fun update(chatId: Long, fun0: (userProfile: UserProfile) -> UserProfile): UserProfile
+    fun setSimpleMessageData(chatId: Long, simpleMessageData: SimpleMessageData): UserProfile
 
     /**
      * Clears field simpleMessageData in user profile

@@ -10,6 +10,7 @@ import ru.net.arh.vocabulary.bh.data.QuestData
 import ru.net.arh.vocabulary.bh.service.common.MessageTemplateProvider
 import ru.net.arh.vocabulary.bh.service.common.UserProfileService
 import ru.net.arh.vocabulary.bh.service.telegram.CallbackUtils
+import ru.net.arh.vocabulary.bh.service.telegram.callbackhandlers.ManageWordCallbackHandlerImpl
 import ru.net.arh.vocabulary.bh.service.telegram.callbackhandlers.ProcessQuestAnswerCallbackHandlerImpl
 import ru.net.arh.vocabulary.bh.service.telegram.escape
 import java.text.MessageFormat
@@ -29,14 +30,24 @@ class QuestSendMessageFactory(
         val okCallbackButton = inlineKeyboardButton(locale, questData.historyId, true, MessageCodes.CAPTION_OK)
         val skipCallbackButton = inlineKeyboardButton(locale, questData.historyId, null, MessageCodes.CAPTION_SKIP)
         val errorCallbackButton = inlineKeyboardButton(locale, questData.historyId, false, MessageCodes.CAPTION_ERROR)
-        val buttons = listOf(okCallbackButton, skipCallbackButton, errorCallbackButton)
+        val manageWordCallbackButton = InlineKeyboardButton.builder()
+                .text(messageTemplateProvider.getMessage(locale, MessageCodes.CAPTION_MANAGE_WORD))
+                .callbackData(callbackUtils.saveCallbackDataString(
+                        callbackName = ManageWordCallbackHandlerImpl.NAME,
+                        params = hashMapOf(
+                                "word_id" to questData.id
+                        )
+                ))
+                .build()
+        val buttons = listOf(listOf(okCallbackButton, skipCallbackButton, errorCallbackButton),
+                listOf(manageWordCallbackButton))
         return SendMessage.builder()
             .chatId(chatId.toString())
             .text(msg)
             .parseMode(ParseMode.MARKDOWNV2)
             .replyMarkup(
                 InlineKeyboardMarkup.builder()
-                    .keyboard(listOf(buttons))
+                    .keyboard(buttons)
                     .build()
             )
             .build()

@@ -29,7 +29,7 @@ class RenameDictionarySendMessageFactory(
                         "dict_id" to dictionary.id
                 )
         ))
-        val userProfile = userProfileService.update(chatId, {it.apply { it.simpleMessageData = simpleMessageData }})
+        val userProfile = userProfileService.setSimpleMessageData(chatId, simpleMessageData)
         val msg = MessageFormat(messageTemplateProvider.getMessage(userProfile.locale, MessageCodes.MESSAGE_ENTER_NEW_DICTIONARY_NAME))
                 .format(arrayOf(dictionary.name.escape()))
         return SendMessage.builder()

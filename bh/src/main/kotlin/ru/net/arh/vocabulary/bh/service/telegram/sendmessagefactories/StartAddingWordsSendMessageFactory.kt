@@ -29,7 +29,7 @@ class StartAddingWordsSendMessageFactory(
                 handlerName = AddWordSimpleMessageHandlerImpl.NAME,
                 payload = hashMapOf("dict_id" to dictId)
         ))
-        val userProfile = userProfileService.update(chatId, { it.apply { it.simpleMessageData = simpleMessageData } })
+        val userProfile = userProfileService.setSimpleMessageData(chatId, simpleMessageData)
         val msg = MessageFormat(messageTemplateProvider.getMessage(userProfile.locale, MessageCodes.MESSAGE_ADDING_WORDS))
                 .format(arrayOf(dictionaryManagementService.get(dictId).name.escape()))
         return SendMessage.builder()
