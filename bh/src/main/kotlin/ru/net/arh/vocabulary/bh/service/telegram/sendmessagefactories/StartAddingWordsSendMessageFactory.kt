@@ -8,25 +8,30 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow
 import ru.net.arh.vocabulary.bh.data.MessageCodes
 import ru.net.arh.vocabulary.bh.data.SimpleMessageData
+import ru.net.arh.vocabulary.bh.service.businesslogic.DictionaryManagementService
 import ru.net.arh.vocabulary.bh.service.common.MessageTemplateProvider
 import ru.net.arh.vocabulary.bh.service.common.UserProfileService
+import ru.net.arh.vocabulary.bh.service.telegram.escape
 import ru.net.arh.vocabulary.bh.service.telegram.repository.SimpleMessageDataRepository
-import ru.net.arh.vocabulary.bh.service.telegram.simplemessagehandlers.CreateDictionarySimpleMessageHandlerImpl
+import ru.net.arh.vocabulary.bh.service.telegram.simplemessagehandlers.AddWordSimpleMessageHandlerImpl
+import java.text.MessageFormat
 
 @Service
-class CreateDictionarySendMessageFactory(
+class StartAddingWordsSendMessageFactory(
+        private val messageTemplateProvider: MessageTemplateProvider,
         private val userProfileService: UserProfileService,
         private val simpleMessageDataRepository: SimpleMessageDataRepository,
-        private val messageTemplateProvider: MessageTemplateProvider
+        private val dictionaryManagementService: DictionaryManagementService,
 ) {
-    fun getInstance(chatId: Long): SendMessage {
-        val simpleMessageData = simpleMessageDataRepository.save(SimpleMessageData(
-                handlerName = CreateDictionarySimpleMessageHandlerImpl.NAME,
-                payload = emptyMap()
-        ))
-        val userProfile = userProfileService.update(chatId, {it.apply { it.simpleMessageData = simpleMessageData }})
 
-        val msg = messageTemplateProvider.getMessage(userProfile.locale, MessageCodes.MESSAGE_CREATING_DICTIONARY)
+    fun getInstance(chatId: Long, dictId: Long): SendMessage {
+        val simpleMessageData = simpleMessageDataRepository.save(SimpleMessageData(
+                handlerName = AddWordSimpleMessageHandlerImpl.NAME,
+                payload = hashMapOf("dict_id" to dictId)
+        ))
+        val userProfile = userProfileService.update(chatId, { it.apply { it.simpleMessageData = simpleMessageData } })
+        val msg = MessageFormat(messageTemplateProvider.getMessage(userProfile.locale, MessageCodes.MESSAGE_ADDING_WORDS))
+                .format(arrayOf(dictionaryManagementService.get(dictId).name.escape()))
         return SendMessage.builder()
                 .chatId(chatId.toString())
                 .text(msg)
@@ -34,7 +39,7 @@ class CreateDictionarySendMessageFactory(
                 .replyMarkup(ReplyKeyboardMarkup.builder()
                         .oneTimeKeyboard(true)
                         .resizeKeyboard(true)
-                        .keyboardRow(KeyboardRow(listOf(KeyboardButton("CANCEL"))))
+                        .keyboardRow(KeyboardRow(listOf(KeyboardButton("FINISH"))))
                         .build())
                 .build()
     }

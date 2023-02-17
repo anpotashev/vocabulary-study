@@ -23,15 +23,13 @@ class ConfirmDeleteNonEmptyDictionarySendMessageFactory(
     private val simpleMessageDataRepository: SimpleMessageDataRepository
 ) {
     fun getInstance(chatId: Long, dictionary: Dictionary): SendMessage {
-        val userProfile = userProfileService.getUserProfile(chatId)
-        val simpleMessageData = SimpleMessageData(
+        val simpleMessageData = simpleMessageDataRepository.save(SimpleMessageData(
                 handlerName = ConfirmDeleteDictionarySimpleMessageSendMessageHandlerImpl.NAME,
                 payload = hashMapOf(
                         "dict_id" to dictionary.id
                 )
-        ).let { simpleMessageDataRepository.save(it) }
-        userProfile.simpleMessageData = simpleMessageData
-        userProfileService.save(userProfile)
+        ))
+        val userProfile = userProfileService.update(chatId, {it.apply { it.simpleMessageData = simpleMessageData }})
         val msg = MessageFormat(messageTemplateProvider.getMessage(userProfile.locale, MessageCodes.MESSAGE_CONFIRM_DELETE_NON_EMPTY_DICTIONARY))
                 .format(arrayOf(dictionary.name.escape()))
         return SendMessage.builder()

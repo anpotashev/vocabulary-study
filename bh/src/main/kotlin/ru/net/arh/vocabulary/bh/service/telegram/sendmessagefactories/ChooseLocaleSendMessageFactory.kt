@@ -11,7 +11,7 @@ import ru.net.arh.vocabulary.bh.service.telegram.CallbackUtils
 import ru.net.arh.vocabulary.bh.service.telegram.callbackhandlers.SetUserLocaleCallbackHandlerImpl
 
 @Service
-class ChooseLocaleSendmessageFactory(
+class ChooseLocaleSendMessageFactory(
         private val localeService: LocaleService,
         private val callbackUtils: CallbackUtils,
         private val messageTemplateProvider: MessageTemplateProvider

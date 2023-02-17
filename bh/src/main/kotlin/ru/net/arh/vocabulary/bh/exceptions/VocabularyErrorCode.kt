@@ -10,6 +10,7 @@ enum class VocabularyErrorCode(val messageCode: String) {
     DICTIONARY_NOT_FOUND("error.dictionary_not_found"),
     UNKNOWN_COMMAND("error.unknown_command"),
     EMPTY_INPUT("error.empty_input"),
+    ODD_LINE_COUNT_ON_ADDING_WORDS("error.odd_line_count_on_adding_words"),
     UNKNOWN_ERROR("error.unknown");
 
     override fun toString(): String {
