@@ -31,6 +31,7 @@ class AddWordSimpleMessageHandlerImpl(
     }
 
     override fun onUpdate(simpleMessageParams: Map<String, Any?>, chatId: Long, messageId: Int, updateId: Int, messageText: String): SendMessage? {
+        log.debug("Start processing a text message in the process of adding words to dictionary. ChatId={}", chatId)
         if (messageText == "FINISH") {
             ConfirmDeleteDictionarySimpleMessageSendMessageHandlerImpl.log.debug("User finished.")
             userProfileService.clearSimpleMessageData(chatId)

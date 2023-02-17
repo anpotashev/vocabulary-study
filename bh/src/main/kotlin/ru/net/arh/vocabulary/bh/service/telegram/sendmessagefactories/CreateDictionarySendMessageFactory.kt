@@ -24,7 +24,7 @@ class CreateDictionarySendMessageFactory(
                 handlerName = CreateDictionarySimpleMessageHandlerImpl.NAME,
                 payload = emptyMap()
         ))
-        val userProfile = userProfileService.update(chatId, {it.apply { it.simpleMessageData = simpleMessageData }})
+        val userProfile = userProfileService.setSimpleMessageData(chatId, simpleMessageData)
 
         val msg = messageTemplateProvider.getMessage(userProfile.locale, MessageCodes.MESSAGE_CREATING_DICTIONARY)
         return SendMessage.builder()

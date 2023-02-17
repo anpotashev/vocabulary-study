@@ -18,14 +18,18 @@ class UserProfileServiceImpl(
         userProfileRepository.save(userProfile)
     }
 
-    override fun update(chatId: Long, fun0: (userProfile: UserProfile) -> UserProfile): UserProfile {
-        val userProfile = getUserProfile(chatId)
-            .let { fun0.invoke(it) }
-        save(userProfile)
-        return userProfile
+    override fun setSimpleMessageData(chatId: Long, simpleMessageData: SimpleMessageData): UserProfile {
+        return update(chatId, {it.apply { it.simpleMessageData = simpleMessageData }})
     }
 
     override fun clearSimpleMessageData(chatId: Long) {
         update(chatId, { it.apply { it.simpleMessageData = null }})
+    }
+
+    private fun update(chatId: Long, fun0: (userProfile: UserProfile) -> UserProfile): UserProfile {
+        val userProfile = getUserProfile(chatId)
+                .let { fun0.invoke(it) }
+        save(userProfile)
+        return userProfile
     }
 }
