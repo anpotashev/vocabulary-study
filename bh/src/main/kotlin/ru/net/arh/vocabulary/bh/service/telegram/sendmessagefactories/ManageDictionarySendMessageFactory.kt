@@ -32,7 +32,9 @@ class ManageDictionarySendMessageFactory(
             inlineKeyboardButton(userProfile.locale, dictId, SET_ACTIVE, MessageCodes.CAPTION_SET_ACTIVE)
         } else null
         val manageWordsButton = inlineKeyboardButton(userProfile.locale, dictId, ADD_WORDS, MessageCodes.CAPTION_ADD_WORDS)
-        val buttons = listOf(renameButton, deleteButton, setActiveButton, manageWordsButton).filterNotNull()
+        val buttons = listOf(renameButton, deleteButton, setActiveButton, manageWordsButton)
+                .filterNotNull()
+                .map { listOf(it) }
         val msg = MessageFormat(messageTemplateProvider.getMessage(userProfile.locale, MessageCodes.MESSAGE_YOU_MANAGE_DICTIONARY))
                 .format(arrayOf(dictionary.name.escape()))
         return SendMessage.builder()
@@ -41,7 +43,7 @@ class ManageDictionarySendMessageFactory(
                 .parseMode(ParseMode.MARKDOWNV2)
                 .replyMarkup(
                         InlineKeyboardMarkup.builder()
-                                .keyboard(listOf(buttons))
+                                .keyboard(buttons)
                                 .build()
                 )
                 .build()
