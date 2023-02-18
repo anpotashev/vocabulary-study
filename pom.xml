@@ -25,11 +25,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>17</java.version>
+        <java.version>11</java.version>
         <kotlin.version>1.7.22</kotlin.version>
         <BUILD_NUMBER>000</BUILD_NUMBER>
         <DOCKER_REGISTRY_URL>registry.arh.net.ru</DOCKER_REGISTRY_URL>
-<!--        <spring-cloud.version>2021.0.4</spring-cloud.version>-->
         <spring-boot.version>2.7.8</spring-boot.version>
     </properties>
 
