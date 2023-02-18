@@ -44,6 +44,7 @@ class SaveWordSimpleMessageHandler(
         word.original = strings.get(0)
         word.translated = strings.get(1)
         wordRepository.save(word)
+        userProfileService.clearSimpleMessageData(chatId)
         return wordSavedSendMessageFactory.getInstance(chatId)
     }
 }
