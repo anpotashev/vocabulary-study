@@ -13,6 +13,7 @@ enum class VocabularyErrorCode(val messageCode: String) {
     ODD_LINE_COUNT_ON_ADDING_WORDS("error.odd_line_count_on_adding_words"),
     WORD_NOT_FOUND("error.word_not_found"),
     WRONG_MESSAGE_TO_SAVE_THE_WORD("error.wrong_message_to_save_the_word"),
+    QUEST_ALREADY_PROCESSED("error.quest_already_processed"),
     UNKNOWN_ERROR("error.unknown");
 
     override fun toString(): String {
