@@ -1,6 +1,6 @@
 #!/bin/sh
 
-current_release=R1.1.0
+current_release=R1.2.0
 
 if [ $# -ne 3 ]; then
 	echo "Usage: ./create_sql.sh <ddl|dml|postddl> <name> <description>"
